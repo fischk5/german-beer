@@ -1,21 +1,50 @@
-# Lets play question and response
+# Bird, Steven, Edward Loper and Ewan Klein (2009), Natural Language Processing with Python. O’Reilly Media Inc.
+import requests
+import nltk
 import random
+from nltk import word_tokenize
 
-response1 = 'I am well'
-response2 = 'Lets eat dinner twice'
-response3 = 'I have a sore foot'
-response4 = 'Inside.  Somewhere.  Alone.'
-response5 = 'Its about time you asked me about that'
-response6 = 'Probably check your pocket.'
-response7 = 'Yes'
-response8 = 'As far as I can tell, it is cold.'
+tagDict = {}
+adverb = []
+noun = []
+preposition = []
+adjective = []
+verb = []
+coordinatingConjunction = []
+determiner = []
+# huckleberryRaw = open('huckleberry.txt').read()
 
-responses = [response1, response2, response3, response4, response5, response6, response7, response8]
+tagDict["CC"] = coordinatingConjunction
+tagDict["RB"] = adverb
+tagDict["IN"] = preposition
+tagDict["NN"] = noun
+tagDict["JJ"] = adjective
+tagDict["VBP"] = verb
+tagDict["DT"] = determiner
 
-question = input("####\n")
+sentence = "Pretty soon a spider went crawling up my shoulder, and I flipped it off and it lit in the candle; and before I could budge it was all shriveled up.  I didn't need anybody to tell me that that was an awful bad sign and would fetch me some bad luck, so I was scared and most shook the clothes off of me. I got up and turned around in my tracks three times and crossed my breast every time; and then I tied up a little lock of my hair with a thread to keep witches away.  But I hadn't no confidence.  You do that when you've lost a horseshoe that you've found, instead of nailing it up over the door, but I hadn't ever heard anybody say it was any way to keep off bad luck when you'd killed a spider."
 
-while question != 'exit':
-    responseInt=random.randint(0,len(responses))
-    print(responses[responseInt])
-    question = input("####\n")
-print(response)
+def addLexicalValue(tagged, target):
+    if tagged[1] == target and tagged[0] not in tagDict[target]:
+        tagDict[target].append(tagged[0])
+
+def buildLibrary(input):
+    tokens = word_tokenize(sentence)
+    tags = nltk.pos_tag(tokens)
+    for tag in tags:
+        addLexicalValue(tag, 'CC')
+        addLexicalValue(tag, 'RB')
+        addLexicalValue(tag, 'IN')
+        addLexicalValue(tag, 'NN')
+        addLexicalValue(tag, 'JJ')
+        addLexicalValue(tag, 'VBP')
+        addLexicalValue(tag, 'DT')
+
+buildLibrary(sentence)
+
+print(adverbs)
+print(nouns)
+print(prepositions)
+print(adjectives)
+print(verbs)
+print(coordinatingConjunctions)

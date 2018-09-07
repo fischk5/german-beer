@@ -42,9 +42,9 @@ def buildLibrary(input):
 
 buildLibrary(sentence)
 
-print(adverbs)
-print(nouns)
-print(prepositions)
-print(adjectives)
-print(verbs)
-print(coordinatingConjunctions)
+print(adverb)
+print(noun)
+print(preposition)
+print(adjective)
+print(verb)
+print(coordinatingConjunction)
